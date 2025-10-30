@@ -301,6 +301,9 @@ local function popup(overrides)
 end
 
 function enable_virt(opts)
+  if vim.api.nvim_get_option_value("filetype", {}) ~= "markdown" then
+    return
+  end
   local buf = vim.api.nvim_get_current_buf()
   virt_enabled[buf] = true
 
@@ -634,7 +637,6 @@ function enable_virt(opts)
   vim.wo[win].conceallevel = 2
   vim.wo[win].concealcursor = ""
 
-	local win = vim.api.nvim_get_current_win()
 	saved_wrapsettings[win] = vim.wo[win].wrap
 	-- vim.wo[win].wrap = false
 
